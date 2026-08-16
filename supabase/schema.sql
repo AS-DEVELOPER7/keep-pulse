@@ -52,6 +52,11 @@ CREATE TABLE IF NOT EXISTS public.system_config (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Ensure all columns exist for pre-existing tables before creating indexes
+ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS app_url TEXT;
+ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS cron_expression TEXT;
+
 -- Initial default row in system_config
 INSERT INTO public.system_config (id, is_setup_complete, admin_password_hash, cron_secret)
 VALUES ('global', false, '', md5(random()::text))
@@ -78,10 +83,3 @@ CREATE INDEX IF NOT EXISTS idx_projects_next_ping ON public.projects(next_ping_a
 CREATE INDEX IF NOT EXISTS idx_projects_user_id ON public.projects(user_id);
 CREATE INDEX IF NOT EXISTS idx_ping_logs_project_id ON public.ping_logs(project_id);
 CREATE INDEX IF NOT EXISTS idx_ping_logs_executed_at ON public.ping_logs(executed_at DESC);
-
--- ====================================================================
--- MIGRATION STATEMENTS (Run if updating an existing KeepPulse database)
--- ====================================================================
-ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS app_url TEXT;
-ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS cron_expression TEXT;
-ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
