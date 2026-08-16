@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { label: 'Dashboard', href: '/', icon: LayoutDashboard },
   { label: 'Projects', href: '/projects', icon: Layers },
   { label: 'Audit Logs', href: '/logs', icon: ScrollText },
-  { label: 'Settings & Cron', href: '/settings', icon: Settings },
+  { label: 'Settings', href: '/settings', icon: Settings },
 ];
 
 export function MobileNavDrawer({ isOpen, onClose }) {

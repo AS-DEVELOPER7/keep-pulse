@@ -88,7 +88,7 @@ export default function SettingsPage() {
   return (
     <div>
       <PageHeader
-        title="Account Settings & Appearance"
+        title="Settings"
         description="Manage your account profile details, security credentials, and dashboard theme."
       />
 
