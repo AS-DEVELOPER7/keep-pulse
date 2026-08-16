@@ -41,11 +41,12 @@ export async function loginWithGoogle() {
   }
 
   try {
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+    const redirectTarget = `${appUrl.replace(/\/$/, '')}/`;
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${origin}/login`,
+        redirectTo: redirectTarget,
       },
     });
     if (error) throw error;
@@ -71,8 +72,9 @@ export async function resetPasswordRequest({ email }) {
   if (!isAuthConfigured()) {
     throw new Error('Supabase authentication is not configured.');
   }
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || (typeof window !== 'undefined' ? window.location.origin : '');
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/reset-password`,
+    redirectTo: `${appUrl.replace(/\/$/, '')}/reset-password`,
   });
   if (error) throw error;
   return { success: true, data };
