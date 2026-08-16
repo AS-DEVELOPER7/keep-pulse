@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card } from '@/components/atoms/Card.jsx';
@@ -40,6 +40,28 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Clean OAuth cancellation / error hash fragments from address bar
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const hashString = window.location.hash.startsWith('#') ? window.location.hash.substring(1) : window.location.hash;
+    const hashParams = new URLSearchParams(hashString);
+
+    const error = urlParams.get('error') || hashParams.get('error');
+    const errorDesc = urlParams.get('error_description') || hashParams.get('error_description');
+
+    if (error || errorDesc) {
+      // Clean address bar without page reload
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      if (error === 'access_denied' || errorDesc?.includes('access_denied')) {
+        toast.warning('Google Sign-In was cancelled.');
+      } else {
+        toast.error(errorDesc?.replace(/\+/g, ' ') || 'Authentication error occurred.');
+      }
+    }
+  }, [toast]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
