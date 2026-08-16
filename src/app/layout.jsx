@@ -1,6 +1,7 @@
 import './globals.css';
 import StoreProvider from '@/lib/redux/StoreProvider.jsx';
 import { ThemeProvider } from '@/components/providers/ThemeProvider.jsx';
+import { ToastContainer } from '@/components/atoms/ToastContainer.jsx';
 
 export const metadata = {
   title: 'KeepPulse | Supabase & API Keep-Alive Engine',
@@ -35,10 +36,12 @@ export default function RootLayout({ children }) {
       </head>
       <body className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen">
         <ThemeProvider>
-          <StoreProvider>{children}</StoreProvider>
+          <StoreProvider>
+            <ToastContainer />
+            {children}
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
