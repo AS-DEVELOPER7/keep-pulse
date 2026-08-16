@@ -8,6 +8,7 @@ import { Input } from '@/components/atoms/Input.jsx';
 import { Button } from '@/components/atoms/Button.jsx';
 import { useToast } from '@/hooks/useToast.js';
 import { loginUser, loginWithGoogle } from '@/lib/auth/auth-service.js';
+import { supabase } from '@/lib/supabase/client.js';
 import { Activity, Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react';
 
 function GoogleIcon() {
@@ -40,6 +41,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // If already authenticated, redirect away from /login to /
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        router.replace('/');
+      }
+    });
+  }, [router]);
 
   // Clean OAuth cancellation / error hash fragments from address bar
   useEffect(() => {
