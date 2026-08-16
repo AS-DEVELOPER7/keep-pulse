@@ -4,7 +4,7 @@ import { SupabaseTablePinger } from './supabase-table.js';
 import { HttpPinger } from './http-pinger.js';
 
 export const getPinger = (project) => {
-  const method = project.ping_method?.toUpperCase() || 'SUPABASE_TABLE';
+  const method = project.ping_method?.toUpperCase() || 'SUPABASE_HEALTH';
   
   switch (method) {
     case 'SUPABASE_AUTH':
@@ -14,6 +14,7 @@ export const getPinger = (project) => {
     case 'HTTP_GET':
     case 'HTTP_POST':
       return new HttpPinger(project);
+    case 'SUPABASE_HEALTH':
     case 'SUPABASE_TABLE':
     default:
       return new SupabaseTablePinger(project);

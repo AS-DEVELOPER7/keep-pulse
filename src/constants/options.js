@@ -1,7 +1,7 @@
 // Centralized application options & dropdown constants
 
 export const PING_METHODS = [
-  { value: 'SUPABASE_TABLE', label: 'Supabase Dedicated Ping Table (_keep_alive_pings)' },
+  { value: 'SUPABASE_HEALTH', label: 'Supabase Health & REST API (Zero-Setup)' },
 ];
 
 export const INTERVAL_OPTIONS = [

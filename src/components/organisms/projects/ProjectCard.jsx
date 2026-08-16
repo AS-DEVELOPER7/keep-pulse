@@ -100,7 +100,7 @@ export function ProjectCard({
               Driver Method
             </span>
             <span className="font-semibold text-slate-700 dark:text-slate-300 truncate block">
-              {project.ping_method?.replace('SUPABASE_', '') || 'TABLE'}
+              {project.ping_method === 'SUPABASE_HEALTH' || project.ping_method === 'SUPABASE_TABLE' ? 'Supabase Health API' : project.ping_method?.replace('SUPABASE_', '')}
             </span>
           </div>
           <div className="col-span-2 pt-2 border-t border-slate-200/60 dark:border-slate-800/60 flex flex-wrap items-center justify-between gap-1">
