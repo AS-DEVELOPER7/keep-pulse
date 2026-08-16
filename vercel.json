@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron/trigger?secret=keep_pulse_cron_secret_token_123",
-      "schedule": "0 0 * * *"
-    }
-  ]
-}
