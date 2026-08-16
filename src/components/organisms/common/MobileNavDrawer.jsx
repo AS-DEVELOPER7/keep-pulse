@@ -9,7 +9,6 @@ import {
   LayoutDashboard, 
   Layers, 
   ScrollText, 
-  Code2, 
   Settings 
 } from 'lucide-react';
 import { ThemeToggle } from '@/components/molecules/common/ThemeToggle.jsx';
@@ -18,7 +17,6 @@ const NAV_ITEMS = [
   { label: 'Dashboard', href: '/', icon: LayoutDashboard },
   { label: 'Projects', href: '/projects', icon: Layers },
   { label: 'Audit Logs', href: '/logs', icon: ScrollText },
-  { label: 'Target SQL Setup', href: '/target-sql', icon: Code2 },
   { label: 'Settings & Cron', href: '/settings', icon: Settings },
 ];
 
