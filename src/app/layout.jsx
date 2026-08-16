@@ -3,8 +3,13 @@ import StoreProvider from '@/lib/redux/StoreProvider.jsx';
 import { ThemeProvider } from '@/components/providers/ThemeProvider.jsx';
 
 export const metadata = {
-  title: 'KeepPulse - Supabase Keep-Alive Engine',
+  title: 'KeepPulse | Supabase & API Keep-Alive Engine',
   description: 'Prevent free-tier cloud databases and Supabase projects from pausing due to inactivity.',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 // Inline script to prevent FOUC (Flash Of Unstyled Content)
