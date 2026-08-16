@@ -154,10 +154,8 @@ export default function LoginPage() {
             />
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  Password
-                </label>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Password</span>
                 <Link
                   href="/reset-password"
                   className="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
@@ -165,23 +163,16 @@ export default function LoginPage() {
                   Forgot Password?
                 </Link>
               </div>
-              <div className="relative">
-                <Input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
-                  icon={Lock}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
+              <Input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                icon={Lock}
+                rightIcon={showPassword ? EyeOff : Eye}
+                onRightIconClick={() => setShowPassword(!showPassword)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
 
             <Button

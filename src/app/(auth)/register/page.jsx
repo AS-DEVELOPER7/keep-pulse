@@ -143,30 +143,25 @@ export default function RegisterPage() {
               required
             />
 
-            <div className="relative">
-              <Input
-                label="Password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="At least 6 characters"
-                icon={Lock}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-[38px] text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              </button>
-            </div>
+            <Input
+              label="Password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="At least 6 characters"
+              icon={Lock}
+              rightIcon={showPassword ? EyeOff : Eye}
+              onRightIconClick={() => setShowPassword(!showPassword)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
             <Input
               label="Confirm Password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Repeat your password"
               icon={Lock}
+              rightIcon={showPassword ? EyeOff : Eye}
+              onRightIconClick={() => setShowPassword(!showPassword)}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
