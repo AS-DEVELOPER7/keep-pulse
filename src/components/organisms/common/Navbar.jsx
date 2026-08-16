@@ -27,8 +27,8 @@ export function Navbar() {
     router.push('/login');
   };
 
-  const displayName = currentUser?.user_metadata?.name || currentUser?.email?.split('@')[0] || 'User';
-  const displayEmail = currentUser?.email || 'admin@keeppulse.app';
+  const displayName = currentUser?.user_metadata?.name || currentUser?.email?.split('@')[0] || 'Account';
+  const displayEmail = currentUser?.email || 'user@example.com';
   const initials = displayName.slice(0, 2).toUpperCase();
 
   return (
