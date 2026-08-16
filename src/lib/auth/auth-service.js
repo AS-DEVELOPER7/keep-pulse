@@ -68,6 +68,14 @@ export async function getCurrentUser() {
   }
 }
 
+export async function updateUserProfile({ name }) {
+  const { data, error } = await supabase.auth.updateUser({
+    data: { name },
+  });
+  if (error) throw error;
+  return { success: true, data };
+}
+
 export async function resetPasswordRequest({ email }) {
   if (!isAuthConfigured()) {
     throw new Error('Supabase authentication is not configured.');
