@@ -9,6 +9,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 1. Projects Table
 CREATE TABLE IF NOT EXISTS public.projects (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE, -- User isolation
   name TEXT NOT NULL,
   description TEXT,
   app_url TEXT,              -- Encrypted/Plain Live Web Application URL (e.g. https://spendly.app)
@@ -74,6 +75,7 @@ CREATE POLICY "Allow public full access to system_config" ON public.system_confi
 -- Indexing for performance
 CREATE INDEX IF NOT EXISTS idx_projects_status ON public.projects(status);
 CREATE INDEX IF NOT EXISTS idx_projects_next_ping ON public.projects(next_ping_at);
+CREATE INDEX IF NOT EXISTS idx_projects_user_id ON public.projects(user_id);
 CREATE INDEX IF NOT EXISTS idx_ping_logs_project_id ON public.ping_logs(project_id);
 CREATE INDEX IF NOT EXISTS idx_ping_logs_executed_at ON public.ping_logs(executed_at DESC);
 
@@ -82,3 +84,4 @@ CREATE INDEX IF NOT EXISTS idx_ping_logs_executed_at ON public.ping_logs(execute
 -- ====================================================================
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS app_url TEXT;
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS cron_expression TEXT;
+ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
