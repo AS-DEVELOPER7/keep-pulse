@@ -9,6 +9,7 @@ export function Modal({
   onClose,
   title,
   children,
+  footer,
   maxWidth = 'max-w-xl',
 }) {
   useEffect(() => {
@@ -31,21 +32,34 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="fixed inset-0" onClick={onClose} />
       <Card
-        padding="p-6"
-        className={`relative z-10 w-full ${maxWidth} max-h-[90vh] overflow-y-auto shadow-2xl`}
+        padding="p-0"
+        className={`relative z-10 w-full ${maxWidth} max-h-[85vh] flex flex-col shadow-2xl overflow-hidden`}
       >
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+        {/* Fixed Static Header */}
+        <div className="flex items-center justify-between p-5 sm:p-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0">
           <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
             {title}
           </h3>
           <button
             onClick={onClose}
+            type="button"
             className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="pt-4">{children}</div>
+
+        {/* Scrollable Body Only */}
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
+          {children}
+        </div>
+
+        {/* Fixed Static Footer (if provided) */}
+        {footer && (
+          <div className="p-4 sm:p-5 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 flex-shrink-0">
+            {footer}
+          </div>
+        )}
       </Card>
     </div>
   );

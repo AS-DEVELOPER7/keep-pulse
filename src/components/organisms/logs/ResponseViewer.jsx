@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Modal } from '@/components/atoms/Modal.jsx';
 import { Badge } from '@/components/atoms/Badge.jsx';
+import { Button } from '@/components/atoms/Button.jsx';
 import { Copy, Check } from 'lucide-react';
 
 export function ResponseViewer({ log, isOpen, onClose }) {
@@ -34,11 +35,23 @@ export function ResponseViewer({ log, isOpen, onClose }) {
       : `${log.status_code || ''} ${log.response_head}`.trim()
     : `${log.status_code || 'N/A'}`;
 
+  const modalFooter = (
+    <div className="flex items-center justify-between">
+      <div className="text-[11px] text-slate-400">
+        Executed at: {new Date(log.executed_at).toLocaleString()}
+      </div>
+      <Button variant="outline" onClick={onClose}>
+        Close
+      </Button>
+    </div>
+  );
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       title={`Execution Details: ${log.projects?.name || log.project?.name || 'Project Ping'}`}
+      footer={modalFooter}
       maxWidth="max-w-2xl"
     >
       <div className="space-y-4 text-xs">
@@ -90,10 +103,6 @@ export function ResponseViewer({ log, isOpen, onClose }) {
           <pre className="p-4 rounded-xl bg-slate-950 text-emerald-400 font-mono text-[11px] overflow-x-auto max-h-72 whitespace-pre border border-slate-800 shadow-inner leading-relaxed">
             {formattedBody}
           </pre>
-        </div>
-
-        <div className="text-[11px] text-slate-400 text-right">
-          Executed at: {new Date(log.executed_at).toLocaleString()}
         </div>
       </div>
     </Modal>

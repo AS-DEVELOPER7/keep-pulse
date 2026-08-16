@@ -25,7 +25,7 @@ export function ProjectModal({
     app_url: '',
     description: '',
     target_url: '',
-    ping_method: 'SUPABASE_TABLE',
+    ping_method: 'SUPABASE_HEALTH',
     interval_days: '1_MIN',
     headers_json: '',
     body_json: '',
@@ -38,7 +38,7 @@ export function ProjectModal({
         app_url: initialData.app_url || '',
         description: initialData.description || '',
         target_url: initialData.target_url || '',
-        ping_method: initialData.ping_method || 'SUPABASE_TABLE',
+        ping_method: initialData.ping_method || 'SUPABASE_HEALTH',
         interval_days: getIntervalOptionKey(initialData),
         headers_json: initialData.headers_json || '',
         body_json: initialData.body_json || '',
@@ -49,7 +49,7 @@ export function ProjectModal({
         app_url: '',
         description: '',
         target_url: '',
-        ping_method: 'SUPABASE_TABLE',
+        ping_method: 'SUPABASE_HEALTH',
         interval_days: '1_MIN',
         headers_json: '',
         body_json: '',
@@ -82,13 +82,25 @@ export function ProjectModal({
     });
   };
 
+  const modalFooter = (
+    <div className="flex justify-end gap-3">
+      <Button type="button" variant="ghost" onClick={onClose}>
+        Cancel
+      </Button>
+      <Button type="submit" form="project-form" isLoading={isLoading}>
+        {initialData ? 'Save Changes' : 'Create Project'}
+      </Button>
+    </div>
+  );
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       title={initialData ? 'Edit Monitored Project' : 'Add New Monitored Project'}
+      footer={modalFooter}
     >
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form id="project-form" onSubmit={handleSubmit} className="space-y-4">
         <FormField label="Project Name" required>
           <Input
             placeholder="e.g. Spendly App"
@@ -162,15 +174,6 @@ export function ProjectModal({
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           />
         </FormField>
-
-        <div className="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-          <Button type="button" variant="ghost" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button type="submit" isLoading={isLoading}>
-            {initialData ? 'Save Changes' : 'Create Project'}
-          </Button>
-        </div>
       </form>
     </Modal>
   );
